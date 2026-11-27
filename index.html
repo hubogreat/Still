@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eaf0e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>静心 STILL</title>
+<style>
+:root{--bg:#edf2e9;--ink:#294333;--muted:#71816f;--green:#55785b;--pale:#dce8d9;--white:#fff;--line:#dce5d8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
+button{font:inherit;cursor:pointer;border:0} .app{max-width:520px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 16px calc(86px + env(safe-area-inset-bottom))}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 2px 14px}.eyebrow{font-size:10px;letter-spacing:2px;color:var(--muted)}h1{font-size:29px;margin:3px 0 0;letter-spacing:3px}.leaf{background:var(--pale);border-radius:50%;width:44px;height:44px;display:grid;place-items:center;font-size:23px}
+.hero{height:218px;border-radius:23px;overflow:hidden;position:relative;background:linear-gradient(180deg,rgba(22,50,39,.04),rgba(22,50,39,.42)),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=85') center/cover;display:flex;align-items:end;padding:20px;color:white}
+.hero h2{font-size:23px;margin:0 0 7px}.hero p{font-size:13px;margin:0;color:#f1f4ee}
+.section{margin:23px 0 12px;display:flex;justify-content:space-between;align-items:end}.section h2{font-size:18px;margin:0}.section small{color:var(--muted)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:white;border-radius:18px;padding:15px;text-align:left;color:var(--ink);min-height:130px;box-shadow:0 3px 14px #304a3010}.card .emoji{font-size:25px}.card b{display:block;margin:9px 0 4px}.card small{color:var(--muted);line-height:1.5}
+.panel{background:white;border-radius:20px;padding:17px;margin-top:14px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.progress{height:8px;background:#e6ece3;border-radius:99px;overflow:hidden;margin:12px 0 7px}.bar{height:100%;background:#6e916f;width:0%;transition:width .3s}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:#fbfcf8ee;backdrop-filter:blur(15px);display:flex;justify-content:center;padding:9px 8px calc(9px + env(safe-area-inset-bottom));border-top:1px solid var(--line);z-index:4}.tabs button{background:none;color:#899687;flex:1;max-width:125px;padding:6px 0;font-size:11px}.tabs button span{display:block;font-size:20px;margin-bottom:3px}.tabs button.active{color:var(--green);font-weight:700}
+.page{display:none}.page.active{display:block}.muted{color:var(--muted);font-size:13px;line-height:1.6}
+.choice{display:flex;gap:8px;margin:12px 0}.choice button{flex:1;background:#eef2eb;color:var(--ink);border-radius:12px;padding:11px 5px;font-size:13px}.choice button.selected{background:var(--green);color:white}
+.primary{background:var(--green);color:white;border-radius:14px;padding:14px 18px;width:100%;font-weight:650}.secondary{background:var(--pale);color:var(--ink);border-radius:14px;padding:12px 16px}
+.center{text-align:center}.orb{width:180px;height:180px;margin:20px auto;border-radius:50%;background:radial-gradient(circle at 40% 35%,#f6faf1,#b7cfb2 68%,#91ad8d);display:grid;place-items:center;box-shadow:0 0 0 14px #dce8d966;transition:transform 4s ease-in-out}.orb.breathe{transform:scale(1.18)}.orb span{font-size:19px;color:#35563a}.clock{font-size:42px;font-weight:300;letter-spacing:2px;margin:10px}
+.listitem{padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.listitem:last-child{border:0}
+input[type=range]{width:100%;accent-color:var(--green)}
+footer{text-align:center;color:#91a08d;font-size:11px;padding:22px 0}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="eyebrow">STILL · MINDFULNESS</div><h1>静心</h1></div><div class="leaf">🍃</div></header>
+<section id="home" class="page active">
+<div class="hero"><div><h2>让心安静，让思维清晰。</h2><p>每天留给自己一段不被打扰的时间。</p></div></div>
+<div class="section"><h2>今天的专注训练</h2><small>从几分钟开始</small></div>
+<div class="cards">
+<button class="card" onclick="openTraining('呼吸专注')"><div class="emoji">🌿</div><b>呼吸专注</b><small>把注意力温柔地带回呼吸</small></button>
+<button class="card" onclick="openTraining('数息训练')"><div class="emoji">🔢</div><b>数息训练</b><small>从1数到10，走神后重新开始</small></button>
+<button class="card" onclick="openTraining('正念观察')"><div class="emoji">🌱</div><b>正念观察</b><small>观察念头，不急着评价</small></button>
+<button class="card" onclick="openTraining('声音专注')"><div class="emoji">💧</div><b>声音专注</b><small>聆听周围声音的变化</small></button>
+</div>
+<div class="panel"><div class="row"><b>今日训练目标</b><b id="todayLabel">0 / 10 分钟</b></div><div class="progress"><div class="bar" id="todayBar"></div></div><small class="muted">不追求完美，只练习一次次回来。</small></div>
+<div class="section"><h2>30天专注计划</h2><small>循序渐进</small></div>
+<div class="panel"><b>第一周 · 认识注意力</b><p class="muted">每天5分钟，从观察呼吸开始。走神是正常的，发现走神并回来，就是练习的一部分。</p></div>
+</section>
+<section id="train" class="page">
+<div class="section"><h2>专注训练</h2><small>给自己一点安静</small></div>
+<div class="panel">
+<label for="exercise"><b>训练方式</b></label>
+<div class="choice" id="exerciseChoices">
+<button class="selected" onclick="chooseExercise('呼吸专注',this)">呼吸专注</button><button onclick="chooseExercise('数息训练',this)">数息训练</button>
+</div>
+<div class="choice"><button class="selected" onclick="chooseDuration(5,this)">5分钟</button><button onclick="chooseDuration(10,this)">10分钟</button><button onclick="chooseDuration(20,this)">20分钟</button></div>
+<div class="center"><div class="orb" id="orb"><span id="guide">准备开始</span></div><div class="clock" id="clock">05:00</div><p class="muted" id="instruction">坐稳身体，放松肩膀，轻轻把注意力放在呼吸上。</p></div>
+<button class="primary" id="startBtn" onclick="startTimer()">开始训练</button>
+<button class="secondary" id="stopBtn" style="display:none;width:100%;margin-top:9px" onclick="finishTimer(false)">结束训练</button>
+<p class="muted center">如感到不适，请恢复自然呼吸并停止练习。</p>
+</div>
+</section>
+<section id="progress" class="page">
+<div class="section"><h2>我的成长</h2><small>只和昨天的自己比较</small></div>
+<div class="panel"><div class="row"><span class="muted">累计练习时间</span><b id="totalMinutes">0 分钟</b></div><div class="row" style="margin-top:17px"><span class="muted">完成练习次数</span><b id="totalSessions">0 次</b></div><div class="row" style="margin-top:17px"><span class="muted">今天已练习</span><b id="progressToday">0 分钟</b></div></div>
+<div class="panel"><b>给自己的提醒</b><p class="muted">专注不是从不走神，而是一次次发现走神，再把注意力带回来。</p></div>
+</section>
+<section id="profile" class="page">
+<div class="section"><h2>个人设置</h2></div>
+<div class="panel"><div class="listitem"><span>每日目标</span><b>10分钟</b></div><div class="listitem"><span>训练理念</span><b>专注 · 耐心 · 觉察</b></div><div class="listitem"><span>数据保存</span><b>仅保存在本机</b></div></div>
+<p class="muted">这是静心的免费体验版。练习记录保存在当前浏览器中；清除浏览器网站数据可能会导致记录丢失。</p>
+</section>
+<footer>静心 STILL · 给自己一段安静的时间</footer>
+</div>
+<nav class="tabs">
+<button class="active" onclick="showPage('home',this)"><span>⌂</span>首页</button>
+<button onclick="showPage('train',this)"><span>◉</span>训练</button>
+<button onclick="showPage('progress',this)"><span>▥</span>成长</button>
+<button onclick="showPage('profile',this)"><span>☻</span>我的</button>
+</nav>
+<script>
+let selectedMinutes=5, selectedExercise='呼吸专注', remaining=300, interval=null, phaseTimer=null, phase=0, startedAt=0;
+const key='still_meditation_v1';
+let data={totalSeconds:0,sessions:0,todaySeconds:0,today:new Date().toDateString()};
+try{data={...data,...JSON.parse(localStorage.getItem(key)||'{}')}}catch(e){}
+function save(){if(data.today!==new Date().toDateString()){data.today=new Date().toDateString();data.todaySeconds=0}localStorage.setItem(key,JSON.stringify(data));renderStats()}
+function renderStats(){let m=Math.floor(data.todaySeconds/60);document.getElementById('todayLabel').textContent=`${m} / 10 分钟`;document.getElementById('todayBar').style.width=Math.min(100,m*10)+'%';document.getElementById('totalMinutes').textContent=Math.floor(data.totalSeconds/60)+' 分钟';document.getElementById('totalSessions').textContent=data.sessions+' 次';document.getElementById('progressToday').textContent=m+' 分钟'}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function openTraining(name){showPage('train',document.querySelectorAll('.tabs button')[1]);selectedExercise=name;document.querySelectorAll('#exerciseChoices button').forEach(b=>b.classList.toggle('selected',b.textContent===name));document.getElementById('instruction').textContent=instructionFor(name)}
+function instructionFor(name){return name==='数息训练'?'自然呼吸，呼气时在心里数1到10；数乱了，就从1重新开始。':name==='正念观察'?'留意此刻的身体感受和念头，不评判，也不需要改变它们。':name==='声音专注'?'轻轻聆听远近不同的声音，发现注意力飘走后，再回到聆听。':'坐稳身体，放松肩膀，轻轻把注意力放在呼吸上。'}
+function chooseExercise(name,btn){selectedExercise=name;document.querySelectorAll('#exerciseChoices button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');document.getElementById('instruction').textContent=instructionFor(name)}
+function chooseDuration(n,btn){selectedMinutes=n;remaining=n*60;document.querySelectorAll('.choice button').forEach(b=>{if(['5分钟','10分钟','20分钟'].includes(b.textContent))b.classList.toggle('selected',b.textContent===n+'分钟')});updateClock()}
+function updateClock(){document.getElementById('clock').textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0')}
+function startTimer(){if(interval)return;startedAt=Date.now();document.getElementById('startBtn').style.display='none';document.getElementById('stopBtn').style.display='block';document.getElementById('guide').textContent=selectedExercise==='数息训练'?'呼气，数一':selectedExercise==='声音专注'?'聆听':'吸气';let orb=document.getElementById('orb');orb.classList.add('breathe');let inhale=true;phaseTimer=setInterval(()=>{inhale=!inhale;document.getElementById('guide').textContent=selectedExercise==='呼吸专注'?(inhale?'吸气':'呼气'):'保持觉察';orb.classList.toggle('breathe',inhale)},4000);interval=setInterval(()=>{remaining--;updateClock();if(remaining<=0)finishTimer(true)},1000)}
+function finishTimer(completed){if(!interval)return;clearInterval(interval);clearInterval(phaseTimer);interval=null;phaseTimer=null;let elapsed=Math.max(0,selectedMinutes*60-remaining);if(completed)elapsed=selectedMinutes*60;data.totalSeconds+=elapsed;data.todaySeconds+=elapsed;if(elapsed>=60)data.sessions++;save();remaining=selectedMinutes*60;updateClock();document.getElementById('guide').textContent=completed?'练习完成':'练习结束';document.getElementById('orb').classList.remove('breathe');document.getElementById('startBtn').style.display='block';document.getElementById('startBtn').textContent='再练习一次';document.getElementById('stopBtn').style.display='none';}
+renderStats();updateClock();
+</script>
+</body>
+</html>
